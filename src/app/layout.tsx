@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Toaster } from "sonner";
 
 import "./globals.css";
@@ -193,6 +194,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             }}
           />
         </TooltipProvider>
+
+        {/* Real-user Core Web Vitals. Reports only on Vercel deployments — a
+            no-op locally, so `npm run dev` and `npm start` stay silent. */}
+        <SpeedInsights />
       </body>
     </html>
   );
