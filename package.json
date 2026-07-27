@@ -1,0 +1,44 @@
+{
+  "name": "teja-venkat-kundem-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Personal portfolio of Teja Venkat Kundem — Backend Software Engineer (Python · Django · FastAPI · AI Systems · Distributed Architectures)",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.23",
+    "@radix-ui/react-slot": "^1.3.3",
+    "@radix-ui/react-tabs": "^1.1.21",
+    "@radix-ui/react-tooltip": "^1.2.16",
+    "@react-three/fiber": "^9.6.1",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "cmdk": "^1.1.1",
+    "framer-motion": "^12.42.2",
+    "lucide-react": "^1.27.0",
+    "next": "15.5.22",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-icons": "^5.7.0",
+    "sonner": "^2.0.7",
+    "tailwind-merge": "^3.6.0",
+    "three": "^0.185.1"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.6",
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^22.20.1",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@types/three": "^0.185.1",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "15.5.22",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.9.3"
+  }
+}

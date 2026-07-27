@@ -1,0 +1,584 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   DESIGN TOKENS
+   A single source of truth. Every surface, border and glow in the site is
+   derived from these values so the whole page reads as one system.
+   ========================================================================== */
+
+@theme {
+  /* Core palette */
+  --color-void: #050816;
+  --color-ink: #030512;
+  --color-primary: #6366f1;
+  --color-secondary: #8b5cf6;
+  --color-accent: #00d9ff;
+  --color-success: #22c55e;
+  --color-warn: #f59e0b;
+  --color-fg: #ffffff;
+  --color-muted: #94a3b8;
+  --color-faint: #64748b;
+
+  /* Elevation surfaces — layered, never flat */
+  --color-surface-1: oklch(from #050816 calc(l + 0.03) c h);
+  --color-surface-2: oklch(from #050816 calc(l + 0.06) c h);
+
+  /* Typography */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: var(--font-mono-jb), ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* Fluid display scale */
+  --text-display: clamp(2.75rem, 7vw, 5.75rem);
+  --text-display--line-height: 0.94;
+  --text-display--letter-spacing: -0.045em;
+  --text-headline: clamp(2rem, 4.2vw, 3.5rem);
+  --text-headline--line-height: 1.04;
+  --text-headline--letter-spacing: -0.032em;
+  --text-title: clamp(1.375rem, 2.2vw, 1.875rem);
+  --text-title--line-height: 1.2;
+  --text-title--letter-spacing: -0.02em;
+
+  /* Motion — one easing curve everywhere (Apple/Linear-style) */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Named animations */
+  --animate-aurora: aurora 22s ease-in-out infinite;
+  --animate-float-slow: float-slow 7s ease-in-out infinite;
+  --animate-spin-slow: spin 26s linear infinite;
+  --animate-spin-slower: spin 46s linear infinite;
+  --animate-shimmer: shimmer 2.4s linear infinite;
+  --animate-marquee: marquee 46s linear infinite;
+  --animate-caret: caret 1.05s steps(2, start) infinite;
+  --animate-pulse-ring: pulse-ring 3.2s var(--ease-out-expo) infinite;
+  --animate-beam: beam 3.6s var(--ease-in-out-soft) infinite;
+  --animate-rise: rise 0.7s var(--ease-out-expo) both;
+}
+
+@keyframes aurora {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.55;
+  }
+  33% {
+    transform: translate3d(6%, -4%, 0) scale(1.12);
+    opacity: 0.8;
+  }
+  66% {
+    transform: translate3d(-5%, 5%, 0) scale(1.05);
+    opacity: 0.65;
+  }
+}
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-9px) rotate(1.5deg);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -160% 0;
+  }
+  100% {
+    background-position: 260% 0;
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes caret {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.82);
+    opacity: 0.7;
+  }
+  80%,
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes beam {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes word-rise {
+  from {
+    opacity: 0;
+    transform: translateY(105%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes dash-flow {
+  to {
+    stroke-dashoffset: -240;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.965);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes pop-out {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.975);
+  }
+}
+
+@keyframes tip-in {
+  from {
+    opacity: 0;
+    transform: translateY(3px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ==========================================================================
+   BASE
+   ========================================================================== */
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    border-color: color-mix(in oklab, var(--color-fg) 8%, transparent);
+  }
+
+  :root {
+    color-scheme: dark;
+    --nav-h: 4.25rem;
+  }
+
+  html {
+    -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
+    /* Anchors clear the sticky nav */
+    scroll-padding-top: calc(var(--nav-h) + 1.5rem);
+    /* `clip` rather than `hidden`: it prevents a stray horizontal scrollbar
+       without creating a scroll container, so `position: sticky` still works. */
+    overflow-x: clip;
+  }
+
+  body {
+    background-color: var(--color-void);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-primary) 42%, transparent);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Slim, unobtrusive scrollbar that matches the palette */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in oklab, var(--color-primary) 45%, transparent) transparent;
+  }
+
+  ::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--color-primary) 60%, transparent),
+      color-mix(in oklab, var(--color-secondary) 60%, transparent)
+    );
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, var(--color-primary), var(--color-secondary));
+    background-clip: padding-box;
+  }
+
+  /* Respect the OS-level motion preference everywhere, unconditionally. */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      /* Delays must be zeroed too. Staged entrances use `animation-delay` with
+         `backwards` fill, so a surviving delay would hold content hidden for
+         the full stagger before snapping in — the opposite of reduced motion. */
+      animation-delay: 0s !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ==========================================================================
+   UTILITIES
+   ========================================================================== */
+
+/* --- Glass surfaces ------------------------------------------------------ */
+
+@utility glass {
+  background: linear-gradient(
+    160deg,
+    color-mix(in oklab, var(--color-fg) 6%, transparent),
+    color-mix(in oklab, var(--color-fg) 2%, transparent) 55%,
+    transparent
+  );
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  border: 1px solid color-mix(in oklab, var(--color-fg) 9%, transparent);
+  box-shadow:
+    0 1px 0 0 color-mix(in oklab, var(--color-fg) 7%, transparent) inset,
+    0 24px 60px -32px rgb(0 0 0 / 0.85);
+}
+
+@utility glass-strong {
+  background: linear-gradient(
+    160deg,
+    color-mix(in oklab, var(--color-fg) 9%, transparent),
+    color-mix(in oklab, var(--color-fg) 3%, transparent) 60%,
+    color-mix(in oklab, var(--color-primary) 4%, transparent)
+  );
+  backdrop-filter: blur(28px) saturate(170%);
+  -webkit-backdrop-filter: blur(28px) saturate(170%);
+  border: 1px solid color-mix(in oklab, var(--color-fg) 12%, transparent);
+  box-shadow:
+    0 1px 0 0 color-mix(in oklab, var(--color-fg) 10%, transparent) inset,
+    0 32px 80px -40px rgb(0 0 0 / 0.9);
+}
+
+/* --- Text --------------------------------------------------------------- */
+
+@utility text-gradient {
+  background-image: linear-gradient(
+    100deg,
+    #ffffff 0%,
+    #e2e8ff 34%,
+    color-mix(in oklab, var(--color-secondary) 82%, white) 62%,
+    var(--color-accent) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  /* Keeps descenders from being clipped by background-clip:text */
+  padding-block-end: 0.08em;
+}
+
+@utility text-gradient-accent {
+  background-image: linear-gradient(100deg, var(--color-primary), var(--color-secondary) 48%, var(--color-accent));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* --- Borders & glow ----------------------------------------------------- */
+
+/* A true 1px gradient hairline that survives rounded corners. */
+@utility gradient-ring {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      140deg,
+      color-mix(in oklab, var(--color-primary) 70%, transparent),
+      transparent 42%,
+      transparent 58%,
+      color-mix(in oklab, var(--color-accent) 60%, transparent)
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.45s var(--ease-out-expo);
+    pointer-events: none;
+  }
+  &:hover::before,
+  &:focus-within::before {
+    opacity: 1;
+  }
+}
+
+@utility glow-primary {
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--color-primary) 40%, transparent),
+    0 14px 44px -18px color-mix(in oklab, var(--color-primary) 65%, transparent);
+}
+
+@utility glow-accent {
+  box-shadow: 0 12px 40px -16px color-mix(in oklab, var(--color-accent) 60%, transparent);
+}
+
+/* --- Backdrops ---------------------------------------------------------- */
+
+@utility grid-backdrop {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--color-fg) 5%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--color-fg) 5%, transparent) 1px, transparent 1px);
+  background-size: 62px 62px;
+  mask-image: radial-gradient(ellipse 78% 60% at 50% 0%, #000 8%, transparent 76%);
+  -webkit-mask-image: radial-gradient(ellipse 78% 60% at 50% 0%, #000 8%, transparent 76%);
+}
+
+@utility dot-backdrop {
+  background-image: radial-gradient(
+    color-mix(in oklab, var(--color-fg) 11%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 26px 26px;
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 10%, transparent 72%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 10%, transparent 72%);
+}
+
+/* Film grain — the detail that separates "designed" from "generated". */
+@utility noise-overlay {
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.032;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+/* --- Masks & scroll ----------------------------------------------------- */
+
+@utility mask-fade-x {
+  mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent);
+}
+
+@utility mask-fade-b {
+  mask-image: linear-gradient(to bottom, #000 62%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent);
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* --- Layout ------------------------------------------------------------- */
+
+@utility shell {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 78rem;
+  padding-inline: 1.25rem;
+  @media (min-width: 768px) {
+    padding-inline: 2rem;
+  }
+  @media (min-width: 1280px) {
+    padding-inline: 2.5rem;
+  }
+}
+
+/* --- Entrance -------------------------------------------------------------
+   The above-the-fold entrance is CSS, not JS. A JS-driven mount animation can
+   only start after hydration, which holds the largest text at opacity 0 and
+   pushes LCP out by hundreds of milliseconds. These run at first paint and
+   still resolve correctly with JavaScript disabled. */
+
+/* `backwards`, never `both`.
+   `both` retains the final keyframe, which leaves an identity `transform` on the
+   element forever. A transformed descendant is painted into its own layer, so an
+   ancestor's `background-clip: text` can no longer clip its background to those
+   glyphs — the gradient headline renders with `color: transparent` and simply
+   disappears. `backwards` applies the from-state during the delay and then hands
+   the element back to its own styles, leaving no transform behind. */
+
+@utility enter {
+  animation: rise 0.62s var(--ease-out-expo) backwards;
+}
+
+@utility enter-word {
+  animation: word-rise 0.42s var(--ease-out-expo) backwards;
+}
+
+/* --- Off-screen work ------------------------------------------------------
+   The page is one long document (~20,000px). Sections that aren't near the
+   viewport skip style, layout and paint entirely; the intrinsic size keeps the
+   scrollbar honest so nothing shifts when they do render. Find-in-page and
+   anchor navigation still reach inside — `auto` is skippable, not hidden. */
+
+@utility section-defer {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 1200px;
+}
+
+/* --- Radix state transitions -------------------------------------------- */
+
+@utility anim-overlay {
+  animation: fade-in 0.24s var(--ease-out-expo);
+  &[data-state="closed"] {
+    animation: fade-out 0.16s ease-in;
+  }
+}
+
+@utility anim-pop {
+  animation: pop-in 0.3s var(--ease-out-expo);
+  &[data-state="closed"] {
+    animation: pop-out 0.16s ease-in;
+  }
+}
+
+@utility anim-tip {
+  animation: tip-in 0.18s var(--ease-out-expo);
+  &[data-state="closed"] {
+    animation: fade-out 0.12s ease-in;
+  }
+}
+
+/* --- Diagram flow ------------------------------------------------------- */
+
+@utility flow-line {
+  stroke-dasharray: 5 9;
+  animation: dash-flow 6s linear infinite;
+}
+
+/* --- Print (resume view) ------------------------------------------------ */
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+}
