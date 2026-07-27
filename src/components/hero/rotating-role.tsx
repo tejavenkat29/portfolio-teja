@@ -24,7 +24,12 @@ export function RotatingRole({ roles, className }: { roles: readonly string[]; c
     <span className={cn("relative inline-flex items-center", className)}>
       <span className="sr-only">{roles.join(" · ")}</span>
 
-      <span aria-hidden className="relative inline-flex h-[1.35em] items-center overflow-hidden">
+      {/* The mask height and the child's line-height must be the same multiple.
+          They used to be 1.35em and the inherited body leading (~1.5), so the
+          26px line box was clipped by a 23px window — ascenders and descenders
+          were shaved off every role, and `y: ±100%` (the child's own height)
+          overshot the window it was rolling through. */}
+      <span aria-hidden className="relative inline-flex h-[1.45em] items-center overflow-hidden">
         <AnimatePresence mode="popLayout" initial={false}>
           <motion.span
             key={roles[index]}
@@ -32,7 +37,7 @@ export function RotatingRole({ roles, className }: { roles: readonly string[]; c
             animate={{ y: "0%", opacity: 1 }}
             exit={reduced ? undefined : { y: "-100%", opacity: 0 }}
             transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-            className="inline-block whitespace-nowrap text-gradient-accent"
+            className="inline-block whitespace-nowrap leading-[1.45] text-gradient-accent"
           >
             {roles[index]}
           </motion.span>

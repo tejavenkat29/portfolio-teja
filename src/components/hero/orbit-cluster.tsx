@@ -137,9 +137,13 @@ export function OrbitCluster() {
   const rotX = useTransform(sy, [-1, 1], [-6, 6]);
 
   React.useEffect(() => {
-    // Defer WebGL until the browser is idle so it never competes with LCP, and
-    // skip it entirely on small viewports and for reduced-motion visitors.
-    if (reduced || window.innerWidth < 768 || !supportsWebGL()) return;
+    // Defer WebGL until the browser is idle so it never competes with LCP, then
+    // mount it on every capable device. This used to bail below 768px, which left
+    // phones with hollow rings while desktop got the wireframe core — the same
+    // component rendering two different compositions. The scene is a wireframe
+    // icosahedron plus 420 points, so the saving was never worth the divergence;
+    // CoreScene caps its own DPR on small screens instead.
+    if (reduced || !supportsWebGL()) return;
     let idleId = 0;
     let timeoutId = 0;
 
@@ -174,7 +178,7 @@ export function OrbitCluster() {
           ? undefined
           : { x: tx, y: ty, rotateX: rotX, rotateY: rotY, transformPerspective: 1100 }
       }
-      className="relative mx-auto aspect-square w-full max-w-[19rem] sm:max-w-[24rem] lg:max-w-[31rem]"
+      className="relative mx-auto aspect-square w-full max-w-[16rem] sm:max-w-[24rem] lg:max-w-[31rem]"
     >
       {/* Ambient bloom — kept low so the rings and logos stay the focus */}
       <div
@@ -198,21 +202,21 @@ export function OrbitCluster() {
         size="88%"
         duration="48s"
         slugs={OUTER}
-        chipClass="h-12 w-12 sm:h-14 sm:w-14"
-        iconClass="size-5 sm:size-6"
+        chipClass="h-11 w-11 sm:h-14 sm:w-14"
+        iconClass="size-[1.15rem] sm:size-6"
       />
       <OrbitRing
         size="55%"
         duration="34s"
         slugs={INNER}
         reverse
-        chipClass="h-10 w-10 sm:h-12 sm:w-12"
-        iconClass="size-4 sm:size-5"
+        chipClass="h-9 w-9 sm:h-12 sm:w-12"
+        iconClass="size-[0.9rem] sm:size-5"
       />
 
       {/* Centre identity */}
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-        <div className="relative grid size-[8.5rem] place-items-center sm:size-[9.5rem]">
+        <div className="relative grid size-[7.25rem] place-items-center sm:size-[9.5rem]">
           <span
             aria-hidden
             className="absolute inset-0 rounded-full border border-primary/30 animate-pulse-ring motion-reduce:animate-none"
@@ -233,7 +237,7 @@ export function OrbitCluster() {
                 the exact axis the rings and chips orbit. The caption is taken out
                 of flow — as a second grid child it centred the *pair*, which
                 pushed the logo visibly above the centre of the whole cluster. */}
-            <Monogram className="size-12 sm:size-14" />
+            <Monogram className="size-10 sm:size-14" />
             <span className="absolute bottom-[15%] left-1/2 -translate-x-1/2 whitespace-nowrap font-mono text-[0.5625rem] uppercase tracking-[0.2em] text-faint">
               {profile.monogram} · IST
             </span>

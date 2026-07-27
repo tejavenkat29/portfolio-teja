@@ -121,10 +121,17 @@ class WebGLBoundary extends React.Component<
 }
 
 export default function CoreScene() {
+  // Phones run this at up to 3x native; capping keeps the fragment count in the
+  // same ballpark as desktop. Read once at mount — the component is `ssr: false`,
+  // and a resize past the breakpoint isn't worth re-creating the context for.
+  const maxDpr = React.useRef(
+    typeof window !== "undefined" && window.innerWidth < 768 ? 1.4 : 1.75,
+  ).current;
+
   return (
     <WebGLBoundary>
       <Canvas
-        dpr={[1, 1.75]}
+        dpr={[1, maxDpr]}
         camera={{ position: [0, 0, 4.6], fov: 42 }}
         gl={{ antialias: true, alpha: true, powerPreference: "high-performance", failIfMajorPerformanceCaveat: false }}
         style={{ pointerEvents: "none" }}

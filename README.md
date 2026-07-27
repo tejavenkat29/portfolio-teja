@@ -160,7 +160,10 @@ hydration, and it still resolves with JS disabled.
 Everything else:
 
 - Static prerender with hourly ISR; WebGL is dynamically imported, deferred to
-  idle, skipped below 768px, feature-detected, and wrapped in an error boundary.
+  idle, feature-detected, DPR-capped on small screens, and wrapped in an error
+  boundary. It renders on phones too — gating it by viewport width meant the hero
+  was a different composition on mobile than on desktop, which is not a saving
+  worth making for a wireframe icosahedron and 420 points.
 - The command palette and terminal load on first use, with both chunks warmed
   during idle so the first ⌘K is still instant.
 - Sections use `content-visibility: auto` with an intrinsic size, so off-screen
