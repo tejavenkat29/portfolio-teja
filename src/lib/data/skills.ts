@@ -29,12 +29,14 @@ export const skillCategories: SkillCategory[] = [
   {
     id: "programming",
     title: "Programming",
-    blurb: "The two languages everything else is expressed in.",
+    blurb: "The languages everything else is expressed in.",
     icon: "CodeXml",
     tone: "primary",
     skills: [
       { name: "Python", icon: "python", level: 95, tier: "core", usedFor: "Every backend service, pipeline and worker I ship" },
       { name: "SQL", icon: "sql", level: 88, tier: "core", usedFor: "Query tuning and indexing that cut response times 25–30%" },
+      { name: "Bash", icon: "bash", level: 80, tier: "production", usedFor: "Deploy scripts, server ops and CI glue on Linux" },
+      { name: "JavaScript", icon: "javascript", level: 70, tier: "working", usedFor: "Frontend integration and this portfolio's tooling" },
     ],
   },
   {
@@ -76,7 +78,8 @@ export const skillCategories: SkillCategory[] = [
       { name: "PostgreSQL", icon: "postgres", level: 92, tier: "core", usedFor: "Transactional state, per-turn telemetry, indexing strategy" },
       { name: "MongoDB", icon: "mongodb", level: 82, tier: "production", usedFor: "Unstructured session artifacts and transcripts" },
       { name: "Redis", icon: "redis", level: 90, tier: "core", usedFor: "Hot-path caching, Celery broker, slot locks" },
-      { name: "SQLite", icon: "sqlite", level: 78, tier: "working", usedFor: "Local development and lightweight tooling" },
+      { name: "Elasticsearch", icon: "elasticsearch", level: 78, tier: "production", usedFor: "Catalog and test search on the Practo DX platform" },
+      { name: "MySQL", icon: "mysql", level: 75, tier: "working", usedFor: "Relational modelling and querying alongside PostgreSQL" },
     ],
   },
   {
@@ -94,6 +97,20 @@ export const skillCategories: SkillCategory[] = [
       { name: "Nginx", icon: "nginx", level: 80, tier: "production", usedFor: "Reverse proxy, TLS termination, static delivery" },
       { name: "CI/CD", icon: "cicd", level: 85, tier: "core", usedFor: "Automated build, test and deploy pipelines" },
       { name: "GitHub Actions", icon: "githubactions", level: 87, tier: "core", usedFor: "Every deploy I own runs through it" },
+      { name: "Terraform", icon: "terraform", level: 68, tier: "working", usedFor: "Declarative AWS infrastructure as code" },
+      { name: "Ansible", icon: "ansible", level: 66, tier: "working", usedFor: "Repeatable server configuration and provisioning" },
+    ],
+  },
+  {
+    id: "monitoring",
+    title: "Monitoring & Observability",
+    blurb: "If it isn't measured, it isn't running — dashboards, alerts and per-request telemetry.",
+    icon: "Activity",
+    tone: "success",
+    skills: [
+      { name: "Grafana", icon: "grafana", level: 80, tier: "production", usedFor: "Dashboards for latency, cost and error budgets" },
+      { name: "Prometheus", icon: "prometheus", level: 78, tier: "production", usedFor: "Metrics collection and alerting rules" },
+      { name: "Datadog", icon: "datadog", level: 74, tier: "production", usedFor: "Log aggregation and production alerting" },
     ],
   },
   {
@@ -131,6 +148,9 @@ export const skillCategories: SkillCategory[] = [
 export const practices: string[] = [
   "Microservices",
   "Distributed Systems",
+  "Prompt Engineering",
+  "Alerting & Logging",
+  "Metrics / Telemetry",
   "System Design",
   "Database Design",
   "API Optimization",

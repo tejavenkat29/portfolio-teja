@@ -84,10 +84,10 @@ export function TerminalOverlay({
         node: (
           <div className="space-y-1">
             <div className="text-white/90">
-              {profile.name} — <span className="text-primary">Backend Software Engineer</span>
+              {profile.name} — <span className="text-primary">{profile.headline}</span>
             </div>
             <div className="text-faint">
-              Python · Django · DRF · FastAPI · real-time AI · distributed systems
+              Python · Django/FastAPI · AI/LLM · Cloud & DevOps · monitoring
             </div>
             <div className="pt-1 text-faint">
               Type <span className="text-accent">help</span> to see what this shell knows.

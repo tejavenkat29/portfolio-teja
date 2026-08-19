@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 
 import { profile } from "@/lib/data/profile";
 
-export const alt = `${profile.name} — Backend Software Engineer`;
+export const alt = `${profile.name} — ${profile.headline}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -94,7 +94,7 @@ export default async function OpengraphImage() {
           </div>
 
           <div style={{ display: "flex", fontSize: 36, color: "#c7ccff", letterSpacing: -0.8 }}>
-            Backend Software Engineer · Python · Django · FastAPI
+            Software Engineer · Python · Django/FastAPI · AI/LLM · Cloud & DevOps
           </div>
 
           <div

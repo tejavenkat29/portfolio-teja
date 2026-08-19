@@ -2,19 +2,19 @@ export const profile = {
   name: "Teja Venkat Kundem",
   shortName: "Teja",
   monogram: "TK",
-  headline: "Backend Software Engineer",
+  headline: "Software Engineer",
   /** Cycled by the hero's rotating title. Order matters — first one is SSR'd. */
   roles: [
-    "Backend Software Engineer",
+    "Software Engineer",
     "Python Backend Developer",
-    "AI Engineer",
-    "Distributed Systems Enthusiast",
+    "AI/LLM Engineer",
+    "Cloud & DevOps Engineer",
   ],
   intro:
     "I design and build scalable backend systems, AI-powered applications, distributed architectures, and production-grade APIs that solve real-world problems.",
   /** A second, denser line used for SEO descriptions and the About lede. */
   summary:
-    "Backend engineer with 1+ year of experience shipping production real-time AI systems in Python, Django, DRF and FastAPI. I own the unglamorous parts — latency budgets, provider failover, idempotent webhooks, cost per turn — for systems where a 300 ms regression is something a user can hear.",
+    "Software engineer with 1+ year of experience shipping production backends and real-time AI systems in Python, Django, DRF and FastAPI. I own the unglamorous parts — latency budgets, provider failover, idempotent webhooks, cost per turn — and keep them honest in production with Docker, Kubernetes, CI/CD on AWS, and monitoring via Grafana, Prometheus and Datadog.",
   location: "Andhra Pradesh, India",
   timezone: "Asia/Kolkata",
   availability: "Open to backend & AI engineering roles",

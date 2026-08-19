@@ -27,9 +27,9 @@ const jetbrains = JetBrains_Mono({
   preload: false,
 });
 
-const title = `${profile.name} — Backend Software Engineer`;
+const title = `${profile.name} — ${profile.headline}`;
 const description =
-  "Backend Software Engineer building production real-time AI systems, distributed architectures and high-performance REST APIs in Python, Django, DRF and FastAPI.";
+  "Software Engineer building production backends and real-time AI systems in Python, Django, DRF and FastAPI — deployed with Docker, Kubernetes and CI/CD on AWS, and monitored with Grafana, Prometheus and Datadog.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(profile.siteUrl),
@@ -44,9 +44,11 @@ export const metadata: Metadata = {
   publisher: profile.name,
   keywords: [
     "Teja Venkat Kundem",
+    "Software Engineer",
     "Backend Software Engineer",
     "Python Backend Developer",
     "AI Engineer",
+    "Cloud & DevOps Engineer",
     "Django Developer",
     "Django REST Framework",
     "FastAPI",
@@ -111,7 +113,7 @@ const personSchema = {
   name: profile.name,
   givenName: "Teja Venkat",
   familyName: "Kundem",
-  jobTitle: "Backend Software Engineer",
+  jobTitle: profile.headline,
   description,
   email: `mailto:${profile.email}`,
   telephone: profile.phoneE164,

@@ -4,7 +4,7 @@ import { profile } from "@/lib/data/profile";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: `${profile.name} — Backend Software Engineer`,
+    name: `${profile.name} — ${profile.headline}`,
     short_name: profile.name,
     description:
       "Portfolio of Teja Venkat Kundem — backend engineer building real-time AI systems, distributed architectures and production APIs.",

@@ -37,6 +37,7 @@ export const experience: Role[] = [
       "Python",
       "Django",
       "DRF",
+      "FastAPI",
       "LiveKit",
       "OpenAI Realtime",
       "Claude on Bedrock",
@@ -45,6 +46,7 @@ export const experience: Role[] = [
       "PostgreSQL",
       "MongoDB",
       "Docker",
+      "Kubernetes",
       "AWS",
     ],
     highlights: [
@@ -94,9 +96,16 @@ export const experience: Role[] = [
       {
         title: "Secured and shipped the platform",
         detail:
-          "OAuth 2.0 / JWT with role-based access control, containerized via Docker Compose, CI/CD on GitHub Actions, deployed to AWS (EC2, S3) with per-turn cost and latency telemetry.",
+          "OAuth 2.0 / JWT with role-based access control, containerized via Docker Compose, CI/CD on GitHub Actions, deployed to AWS (EC2, S3) and operated Kubernetes in production.",
         icon: "ShieldCheck",
-        tags: ["OAuth 2.0", "JWT", "RBAC", "GitHub Actions"],
+        tags: ["OAuth 2.0", "JWT", "RBAC", "Kubernetes", "GitHub Actions"],
+      },
+      {
+        title: "Set up monitoring and alerting",
+        detail:
+          "Grafana dashboards and Prometheus metrics over per-turn cost and latency telemetry, with Datadog for log aggregation and production alerts — so regressions page someone before a user notices.",
+        icon: "Activity",
+        tags: ["Grafana", "Prometheus", "Datadog"],
       },
       {
         title: "Delivered Practo client microservices",
